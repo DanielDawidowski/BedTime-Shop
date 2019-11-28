@@ -47,15 +47,15 @@ class UI {
         products.forEach(product => {
             result += `
                 <article class="product">
-                <div class="img-container">
-                    <img src=${product.image} alt="product" class="product-img">
-                    <button class="bag-btn" data-id=${product.id}>
-                        <i class="fas fa-shopping-cart">Add to Cart</i>
-                    </button>
-                </div>
-                <h3>${product.title}</h3>
-                <h4>$ ${products.price}</h4>
-            </article>
+                    <div class="img-container">
+                        <img src=${product.image} alt="product" class="product-img">
+                        <button class="bag-btn" data-id=${product.id}>
+                            <i class="fas fa-shopping-cart">Add to Cart</i>
+                        </button>
+                    </div>
+                    <h3>${product.title}</h3>
+                    <h4>$ ${products.price}</h4>
+                </article>
             `
         })
         productsDOM.innerHTML = result
@@ -64,7 +64,9 @@ class UI {
 
 // local storage 
 class Storage {
-
+    static saveProducts(products) {
+        localStorage.setItem('products', JSON.stringify(products))
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -72,5 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const products = new Products()
 
     // get all products
-    products.getProducts().then(products => ui.displayProducts(products))
+    products.getProducts().then(products => {
+        ui.displayProducts(products)
+        Storage.saveProducts(products)
+    });
 })
