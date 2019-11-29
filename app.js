@@ -90,7 +90,7 @@ class UI {
                     // display cart item
                     this.addCartItem(cartItem)
                     // show the cart 
-                    this.showCart()
+                    // this.showCart() optionall
                 })
             }
         })
@@ -157,7 +157,7 @@ class UI {
                 let addAmount = event.target;
                 let id = addAmount.dataset.id;
                 let tempItem = cart.find(item => item.id === id);
-                tempItem.amount++;
+                tempItem.amount = tempItem.amount + 1;
                 Storage.saveCart(cart);
                 this.setCartValues(cart);
                 addAmount.nextElementSibling.innerText = tempItem.amount
@@ -165,7 +165,7 @@ class UI {
                 let lowerAmount = event.target;
                 let id = lowerAmount.dataset.id;
                 let tempItem = cart.find(item => item.id === id);
-                tempItem.amount--;
+                tempItem.amount = tempItem.amount - 1;
                 if (tempItem.amount > 0) {
                     Storage.saveCart(cart);
                     this.setCartValues(cart);
